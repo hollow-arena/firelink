@@ -1,0 +1,16 @@
+# Microsoft Excel SDK files
+include/
+lib/
+XLCALL.cpp
+
+# Intermediate binaries and object files
+bin/
+obj/
+
+# VSCode build tasks and C/C++ config
+.vscode/
+
+# MSVC generated files
+*.ilk
+*.exp
+*.pdb
