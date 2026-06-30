@@ -40,6 +40,7 @@ extern "C" __declspec(dllexport) LPXLOPER12 WINAPI pyUDFDispatch(
     while (count < 32 && args[count]->xltype != xltypeMissing) count++;
 
     // TODO: look up Python function by caller name, marshal args, dispatch
+    // TODO: heap-allocate result with xlbitDLLFree instead of static buffer
     static XLOPER12 xErr = { .val = { .err = xlerrValue }, .xltype = xltypeErr };
     return &xErr;
 }
@@ -60,6 +61,11 @@ __declspec(dllexport) int WINAPI xlAutoClose()
     if (Py_IsInitialized())
         Py_Finalize();
     return 1;
+}
+
+__declspec(dllexport) void WINAPI xlAutoFree12(LPXLOPER12 pxFree)
+{
+    delete pxFree;
 }
 
 __declspec(dllexport) int WINAPI xlAutoAdd()    { return 1; }
